@@ -56,26 +56,42 @@ Data yang digunakan pada proyek kali ini adalah [Laptop Price Prediction Dataset
 - 'OS'  : Sistem Operasi Laptop
 - 'Warranty'  : jaminan garansi Laptop (tahun)
 
-Beberapa visualisasi yang dilakukan dalam EDA dapat dilihat pada notebook.
+Beberapa insight yang diperoleh dari hasil exploratory data analysis yaitu sebagai berikut:
+
+- Terdapat 29 kategori brand dengan brand terbanyak yaitu HP sebanyak 170 laptop
+- Terdapat 165 kategori processor dengan processor terbanyak yaitu 12th Gen Intel Core i5 1235U sebanyak 49 laptop
+- Terdapat 24 kategori CPU dengan CPU terbanyak yaitu Quad Core, 8 Threads sebanyak 130 laptop
+- Terdapat 12 kategori tipe RAM dengan tipe RAM terbanyak yaitu DDR4 sebanyak 497 laptop
+- Terdapat 2 kategori tipe ROM dengen tipe ROM terbanyak yaitu SSD sebanyak 801 laptop
+- Terdapat 115 kategori GPU dengan GPU terbanyak yaitu Intel Iris Xe Graphics sebanyak 98 laptop
+- Terdapat 12 kategori OS dengan OS terbanyak yaitu Windows 11 OS sebanyak 723 laptop
+- Rentang harga laptop cukup tinggi yaitu dari skala 10000 hingga sekitar 160000.
+- Harga laptop lebih banyak berada di sekitar kurang dari 100000.
+- Distribusi harga miring ke kanan (right-skewed).
 
 ## Data Preparation
 Beberapa yang dilakukan dalam menyiapkan data untuk model yaitu dengan:
 
 ### Encoding fitur kategori pada data menggunakan OneHotEncoder
-Encoding fitur adalah proses mengubah data kategorikal (seperti teks atau label) menjadi bentuk numerik yang dapat digunakan oleh algoritma machine learning. Hal ini dilakukan karena sebagian besar algoritma machine learning hanya dapat menangani input numerik, data kategorikal perlu diubah menjadi angka (0 atau 1). 
+Encoding fitur adalah proses mengubah data kategorikal (seperti teks atau label) menjadi bentuk numerik yang dapat digunakan oleh algoritma machine learning. Hal ini dilakukan karena sebagian besar algoritma machine learning hanya dapat menangani input numerik, data kategorikal perlu diubah menjadi angka (0 atau 1). Feature yang diencode pada data tersebut yaitu feature 'ROM_type' 
 
 ### Membagi Dataset menjadi training dan testing (split data)
 Split data adalah proses membagi dataset menjadi beberapa bagian yang berbeda untuk tujuan pelatihan, validasi, dan pengujian model machine learning. Biasanya, dataset dibagi menjadi dua yaitu training set dan test set. Hali ini dilakukan untuk mengevaluasi model dengan data yang tidak pernah dilihat sebelumnya (data test) selama masa training. Dataset dibagi dengan proporsi 87.5% data traning dan 12.5% data testing.
 
 ### Scaling dengan standarisasi nilai pada data
 Standarisasi (Standardization) adalah teknik scaling di mana fitur-fitur dalam dataset diubah sehingga memiliki mean (rata-rata) 0 dan standard deviation (simpangan baku) 1. 
-Scaling data dengan standarisasi adalah langkah penting dalam proses data preparation yang bertujuan untuk mengubah skala fitur-fitur dalam dataset sehingga memiliki distribusi yang seragam. Selain itu juga dapat mempercepat konvergensi algoritma yang digunakan dalam model prediksi.
+Scaling data dengan standarisasi adalah langkah penting dalam proses data preparation yang bertujuan untuk mengubah skala fitur-fitur dalam dataset sehingga memiliki distribusi yang seragam. Selain itu juga dapat mempercepat konvergensi algoritma yang digunakan dalam model prediksi. Feature yang dilakukan strandarisasi yaitu feature numeric seperti 'spec_rating', 'Ram', 'ROM', 'resolution_width', 'resolution_height'
 
 ## Modeling
 Pada tahap modeling, terdapat beberapa model Machine Learning yang digunakan yaitu K Nearest Neighbor (KNN), Random Forest, Linear Regression, dan Decision Tree. 
 
-### K Nearest Neighbor
-tahapan awal dalam membangun model machine learning dengan algoritma KNN yaitu  dengan mengimport KNeighborsRegressor dari library sklearn lalu diisi dengan parameter n_neighbors. setelah di inisiasi selanjutnya model ditraining dengan dataset train.
+### K Nearest Neighbors
+Algoritma KNN (K-Nearest Neighbors) bekerja dengan cara mengidentifikasi k tetangga terdekat dari sebuah data berdasarkan metrik jarak tertentu (biasanya jarak Euclidean), kemudian menggunakan rata-rata nilai target dari tetangga-tetangga tersebut untuk membuat prediksi.
+
+Langkah-langkah yang dilakukan:
+1. Mengimpor library 'KNeighborsRegressor' dari library 'sklearn.neighbors'
+2. Inisialisasi model KNN dengan parameter 'n_neighbors = 6'
+3. Training Model dengan data train agar model dapat memahami pola dari data
 
 Kelebihan KNN :
 - Sederhana dan mudah dipahami
@@ -86,7 +102,12 @@ Kekurangan KNN :
 - Sensitif terhadap skala fitur
 
 ### Random Forest
-tahapan awal dalam membangun model machine learning dengan algoritma Random Forest yaitu dengan mengimport RandomForestRegressor dari library sklearn lalu diisi dengan parameter n_estimators, max_depth, random_state, dan n_jobs. setelah di inisiasi selanjutnya model ditraining dengan dataset train.
+Algoritma Random Forest bekerja dengan cara membangun banyak pohon keputusan (decision trees) selama pelatihan dan menghasilkan prediksi rata-rata dari setiap pohon untuk meningkatkan akurasi dan mengurangi overfitting.
+
+Langkah-langkah yang dilakukan:
+1. Mengimpor library 'RandomForestRegressor' dari library 'sklearn.ensemble'
+2. Inisialisasi model dengan parameter 'n_estimators = 100', 'max_depth = 32', 'random_state = 64', 'n_jobs = 1'
+3. Training Model dengan data train agar model dapat memahami pola dari data
 
 Kelebihan Random Forest :
 - memberikan akurasi yang tinggi
@@ -97,7 +118,12 @@ Kekurangan Random Forest :
 - waktu komputasi yang tinggi
 
 ### Linear Regression
-tahapan awal dalam membangun model machine learning dengan algoritma Linear Regression yaitu dengan mengimport LinearRegression dari library sklearn. setelah di inisiasi selanjutnya model ditraining dengan dataset train.
+Linear Regression adalah salah satu algoritma paling dasar dalam machine learning yang digunakan untuk memodelkan hubungan antara satu atau lebih fitur independen (predictors) dan variabel target kontinu. Algoritma ini bekerja dengan mencari garis linear (atau hyperplane dalam kasus multivariat) yang paling sesuai dengan data, meminimalkan kesalahan antara prediksi dan nilai aktual.
+
+Langkah-langkah yang dilakukan:
+1. Mengimpor library 'LinearRegression' dari library 'sklearn.linear_model'
+2. Inisialisasi model LinearRegression tanpa parameter
+3. Training Model dengan data train agar model dapat memahami pola dari data
 
 Kelebihan Linear Regression :
 - sederhana dan mudah dipahami
@@ -108,7 +134,12 @@ Kekurangan Linear Regression :
 - kurang baik untuk fitur interaksi
 
 ### Decision Tree
-tahapan awal dalam membangun model machine learning dengan algoritma Decision Tree yaitu  dengan mengimport DecisionTreeRegressor dari library sklearn lalu diisi dengan parameter max_depth dan random_state. setelah di inisiasi selanjutnya model ditraining dengan dataset train.
+Decision Tree adalah salah satu algoritma machine learning yang digunakan untuk melakukan prediksi dengan cara memetakan pengambilan keputusan ke dalam struktur pohon. Algoritma ini membagi data berdasarkan fitur-fitur tertentu dan membuat keputusan akhir dengan mengikuti cabang-cabang pohon yang terbentuk. Pada model regresi, decision tree memprediksi nilai target dengan menghitung rata-rata nilai dari data yang berada di leaf node.
+
+Langkah-langkah yang dilakukan:
+1. Mengimpor library 'DecisionTreeRegressor' dari library 'sklearn.tree'
+2. Inisialisasi model dengan parameter 'max_depth = 32', 'random_state = 64'
+3. Training Model dengan data train agar model dapat memahami pola dari data
 
 Kelebihan Decision Tree :
 - mudah dipahami dan diintepretasikan
@@ -117,8 +148,6 @@ Kelebihan Decision Tree :
 Kekurangan Decision Tree :
 - tidak robust terhadap noise
 - cenderung overfitting
-
-Dari keempat model machine learning yang dibuat, model machine learning prediksi harga laptop terbaik yaitu terdapat pada Model dengan algoritma Random Forest karena metriks evaluasi MSE dan R2_Score nya lebih baik dibandingkan algoritma yang lain serta prediksi harganya yang mendekati dengan harga sebenarnya pada data test
 
 ## Evaluation
 Pada tahap evaluasi, beberapa metriks evaluasi yang digunakan untuk mengevaluasi model-model diatas yaitu dengan mean squared error (MSE) dan R-squared score.
@@ -141,11 +170,13 @@ R-squared (R²) Score adalah metrik yang mengukur seberapa baik model regresi da
 
 Rumus :
 
-$$
+\[
 R^2 = 1 - \frac{\text{SS}_{\text{res}}}{\text{SS}_{\text{tot}}}
-$$
+\]
 
 - SS_res adalah jumlah kuadrat dari residual (perbedaan antara nilai aktual dan nilai prediksi).
 - SS_tot adalah jumlah kuadrat dari deviasi nilai aktual dari rata-rata nilai aktual.
 
-Dari hasil prediksi dan hasil evaluasi model dengan melihat metriks-metriks yang digunakan didapatkan bahwa algoritma dengan hasil prediksi yang paling mendekati yaitu algoritma <b>Random Forest</b> (RF) dengan test_mse(310) dan test_r2(0.74)
+Sebagai kesimpulan akhir dari analisis yang telah kita lakukan dari awal dapat ditarik beberapa poin bahwasannya :
+- Dalam analisis yang dilakukan tidak secara eksplisit memberikan fitur apa yang paling berpengaruh terhadap harga laptop, namun feature yang memiliki korelasi paling tinggi yaitu pada fitur 'spec_rating' dengan skor 0.48. Analisis juga terus dikembangkan hingga pembuatan model machine learning untuk prediksi harga barang dari fitur-fitur yang relevan
+- Dari hasil prediksi dan hasil evaluasi 4 model yang dibuat (KNN, Random Forest, Linear Regression, dan Decision Tree) daro metriks-metriks yang digunakan didapatkan bahwa algoritma dengan hasil prediksi yang paling mendekati yaitu algoritma <b>Random Forest</b> (RF) dengan test_mse(310) dan test_r2(0.74)

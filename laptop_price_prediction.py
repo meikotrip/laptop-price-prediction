@@ -290,18 +290,11 @@ X_train[numerical_features].describe().round(4)
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
 
-# siapkan data frame untuk analisis model
-models = pd.DataFrame(index=['train_mse', 'test_mse','train_r2','test_r2'],
-                      columns=['KNN', 'RandomForest', 'LinearRegression', 'DecisionTree'])
-
 # Membangun model prediksi dengan algoritma KNN
 from sklearn.neighbors import KNeighborsRegressor
 
 knn = KNeighborsRegressor(n_neighbors=6)
 knn.fit(X_train, y_train)
-
-models.loc['train_mse','KNN'] = mean_squared_error(y_pred = knn.predict(X_train), y_true=y_train)
-models.loc['train_r2','KNN'] = r2_score(y_pred = knn.predict(X_train), y_true=y_train)
 
 # Membangun model prediksi dengan algoritma RandomForest
 from sklearn.ensemble import RandomForestRegressor
@@ -309,26 +302,17 @@ from sklearn.ensemble import RandomForestRegressor
 rf = RandomForestRegressor(n_estimators=100, max_depth=32, random_state=64, n_jobs=1)
 rf.fit(X_train, y_train)
 
-models.loc['train_mse','RandomForest'] = mean_squared_error(y_pred = rf.predict(X_train), y_true=y_train)
-models.loc['train_r2','RandomForest'] = r2_score(y_pred = rf.predict(X_train), y_true=y_train)
-
 # Membangun model prediksi dengan algoritma Linear Regression
 from sklearn.linear_model import LinearRegression
 
 lr = LinearRegression()
 lr.fit(X_train, y_train)
 
-models.loc['train_mse','LinearRegression'] = mean_squared_error(y_pred = lr.predict(X_train), y_true=y_train)
-models.loc['train_r2','LinearRegression'] = r2_score(y_pred = lr.predict(X_train), y_true=y_train)
-
 # Membangun model prediksi dengan algoritma DecisionTree
 from sklearn.tree import DecisionTreeRegressor
 
 dt = DecisionTreeRegressor(max_depth=32, random_state=64)
 dt.fit(X_train, y_train)
-
-models.loc['train_mse','DecisionTree'] = mean_squared_error(y_pred = dt.predict(X_train), y_true=y_train)
-models.loc['train_r2','DecisionTree'] = r2_score(y_pred = dt.predict(X_train), y_true=y_train)
 
 """# Evaluasi Model"""
 
