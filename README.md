@@ -171,7 +171,7 @@ R-squared (R²) Score adalah metrik yang mengukur seberapa baik model regresi da
 Rumus :
 
 $$
-\text{R²} = 1 - \frac{\text{SS}_{\text{res}}}{\text{SS}_{\text{tot}}}
+\text{R²} = 1 - \frac{\text{SS}{\text{res}}}{\text{SS}{\text{tot}}}
 $$
 
 - SS_res adalah jumlah kuadrat dari residual (perbedaan antara nilai aktual dan nilai prediksi).
